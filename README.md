@@ -3,6 +3,10 @@
 An interactive business analytics dashboard built with Streamlit,
 Plotly, and Pandas to monitor supply chain performance.
 
+## Dashboard Preview
+
+![Supply Chain KPI Dashboard showing revenue, inventory, fill rate, shipping, and top products](assets/supply-chain-kpi-dashboard.png)
+
 ## Project Status
 
 Working MVP with synthetic sample data, interactive analytics, validated CSV
