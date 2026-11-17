@@ -1,152 +1,145 @@
-# Supply Chain KPI Dashboard
+<h1 align="center">📦 Supply Chain KPI Dashboard</h1>
 
-An interactive business analytics dashboard built with Streamlit,
-Plotly, and Pandas to monitor supply chain performance.
+<p align="center">
+  An interactive dashboard for exploring revenue, inventory, fulfillment, and shipping performance.
+</p>
 
-## Dashboard Preview
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white" alt="Python 3.11 or newer">
+  <img src="https://img.shields.io/badge/Streamlit-1.67.0-FF4B4B?logo=streamlit&logoColor=white" alt="Streamlit 1.67.0">
+  <img src="https://img.shields.io/badge/Plotly-7.1.0-3F4F75?logo=plotly&logoColor=white" alt="Plotly 7.1.0">
+  <img src="https://img.shields.io/badge/Pandas-3.1.1-150458?logo=pandas&logoColor=white" alt="Pandas 3.1.1">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white" alt="HTML5">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white" alt="CSS3">
+</p>
+
+<p align="center">
+  <a href="#features">Features</a> ·
+  <a href="#getting-started">Get started</a> ·
+  <a href="#data--kpi-definitions">Data &amp; KPIs</a> ·
+  <a href="#tests">Tests</a>
+</p>
+
+## Dashboard preview
 
 ![Supply Chain KPI Dashboard showing revenue, inventory, fill rate, shipping, and top products](assets/supply-chain-kpi-dashboard.png)
 
-## Project Status
+## Overview
 
-Working MVP with synthetic sample data, interactive analytics, validated CSV
-uploads, and downloadable reports. No external API or database is required.
+Explore supply chain performance with interactive charts, configurable filters,
+CSV uploads, and downloadable reports. The dashboard starts with reproducible
+synthetic data, so it runs locally without an external API or database.
 
-## Key Features
+## Features
 
-- **Revenue:** Track sales totals and revenue trends.
-- **Inventory:** Monitor stock levels and identify low-stock products.
-- **Fill Rate:** Measure the percentage of ordered units fulfilled.
-- **Shipping Times:** Analyze average transit time from shipment to delivery.
-- **Top Products:** Rank products by revenue and units sold.
-- **Interactive Filters:** Explore results by date, category, and region.
-- **CSV Upload:** Analyze your own data or explore sample datasets.
-- **Downloads:** Export filtered orders and point-in-time inventory snapshots.
-- **Accessible Layout:** Large text, white cards, and a deep blue gradient.
+- **Revenue & product performance** — follow sales trends and rank products by revenue or fulfilled units.
+- **Inventory monitoring** — review current stock and identify products below a configurable threshold.
+- **Fulfillment & shipping** — track unit-weighted fill rate and average delivery transit time.
+- **Interactive exploration** — filter by order date, category, and region.
+- **Bring your own data** — upload validated orders and inventory CSVs, or download sample templates.
+- **Export results** — download filtered orders and inventory snapshots.
+- **Custom styling** — responsive Streamlit layout with HTML/CSS styling.
 
-## Tech Stack
+## Technology
 
-- Python
-- Streamlit
-- Plotly
-- Pandas
+| Technology | Use |
+| --- | --- |
+| Python | Application logic and KPI calculations |
+| Streamlit | Interactive dashboard and CSV workflows |
+| Plotly | Interactive charts |
+| Pandas | Data validation and transformation |
+| HTML & CSS | Custom dashboard styling rendered through Streamlit |
+| Markdown | Project documentation |
 
-## KPI Definitions
+## Data & KPI definitions
+
+The dashboard generates 180 days of repeatable synthetic orders and inventory
+snapshots across eight products, three categories, and three regions. The data
+is illustrative: inventory is generated independently and is not reconciled
+against order movements. No real customer or business data is bundled.
 
 | KPI | Definition |
 | --- | --- |
-| Revenue | Sum of units shipped by the end date × unit selling price, excluding taxes and shipping fees |
-| Inventory | Latest available stock quantity per product at the reporting cutoff |
-| Fill Rate | Fulfilled units ÷ ordered units × 100 |
-| Average Shipping Time | Average calendar days between shipment and delivery for orders delivered by the end date |
-| Top Products | Products ranked by revenue or fulfilled units |
+| Revenue | Fulfilled units by the end date × unit price; excludes taxes and shipping fees |
+| Inventory | Latest available stock quantity per product and region at the reporting cutoff |
+| Fill rate | Total fulfilled units ÷ total ordered units |
+| Average shipping time | Average calendar days from shipment to delivery for orders delivered by the end date |
+| Top products | Products ranked by revenue or fulfilled units |
 
-## Data
+### Reporting rules
 
-The dashboard opens with 180 days of reproducible synthetic orders and inventory
-snapshots across eight products, three categories, and three regions. The data
-ends on the current date and is generated with a fixed random seed.
+- The selected date range filters orders by **order date**, including both endpoints.
+- Fulfillment, revenue, and delivery are evaluated as of the selected end date. Future shipments and deliveries are excluded.
+- Inventory uses the latest snapshot on or before the end date for each product and region. It is not summed across dates; the start date does not affect it.
+- Missing inventory and unavailable rates display as `N/A`, not zero.
+- Monetary values are in **USD**. Revenue is an operational sales measure; taxes, shipping fees, returns, discounts, and currency conversion are not modeled.
 
-Sample data is illustrative: inventory balances are independently generated,
-not reconciled to order movements. No real business or customer data is bundled.
+### Use your own CSVs
 
-### Reporting Rules
+Choose **Upload CSVs** in the sidebar and provide both datasets. Download the
+sample CSVs from the app for complete templates.
 
-- The date range selects orders by **order date**, including both endpoints.
-- Fulfillment, revenue, and deliveries are evaluated at the selected end date:
-  future shipments do not count as fulfilled, and future deliveries do not
-  contribute shipping times.
-- Fill rate is unit-weighted: total fulfilled units / total ordered units.
-- Inventory uses the latest snapshot on or before the end date for each
-  product/region. It is not summed across dates, and the start date does not
-  affect it. Older snapshots are flagged in the dashboard.
-- Missing inventory and unavailable rates display `N/A`, not misleading zeros.
-- Top product is ranked by revenue; the chart can also rank fulfilled units.
-- All monetary values assume **USD**. No currency conversion is performed.
-- Revenue is an operational sales measure, not an accounting revenue-recognition
-  report. Taxes, shipping fees, returns, and discounts are not modeled.
+**Orders**
 
-### Upload Your Own CSVs
-
-Select **Upload CSVs** in the sidebar and provide **both** datasets. Download
-the sample CSVs from the sidebar for complete templates.
-
-**Orders columns**
-
-```text
+```csv
 order_id,order_date,product,category,region,ordered_units,fulfilled_units,unit_price,ship_date,delivery_date
 ```
 
-**Inventory columns**
+**Inventory**
 
-```text
+```csv
 snapshot_date,product,category,region,stock_quantity
 ```
 
-Rules:
+Uploads must be UTF-8 CSVs with headers (up to 100,000 rows per file). Dates use
+`YYYY-MM-DD`; shipment and delivery dates may be blank while pending. Each order
+row represents one product and requires a unique `order_id` (use a unique line
+identifier for multi-line orders). Quantities must be nonnegative whole units,
+with `ordered_units` greater than zero and `fulfilled_units` no greater than
+ordered. Positive fulfillment requires a shipment date; unfulfilled orders must
+not have one. Dates must follow
+`order_date <= ship_date <= delivery_date` when present. Unit prices must be
+finite and nonnegative. Inventory quantities must be nonnegative whole units;
+inventory keys (`snapshot_date`, `product`, `region`) must be unique. Each
+product must have the same category in both files.
 
-- UTF-8 CSVs with headers; up to 100,000 rows per file.
-- Dates use `YYYY-MM-DD`. Shipment and delivery dates may be blank while pending.
-- One product per order row, with a unique `order_id`. Multi-line order data
-  should use a unique line identifier in this column.
-- Quantities are finite, nonnegative whole units; `ordered_units` must exceed zero.
-- Fulfilled units cannot exceed ordered units. Positive fulfilled units require
-  a shipment date; an unfulfilled order must not have a shipment date.
-- Dates follow `order_date <= ship_date <= delivery_date` when present.
-- Unit prices must be finite and nonnegative.
-- Inventory keys (`snapshot_date`, `product`, `region`) must be unique.
-- Products must use one consistent category across both datasets.
+Uploads are validated with explicit errors and processed in memory; they are
+not written to a database. Use non-sensitive demo data for public deployments.
+Order exports include calculated revenue and shipping days. Inventory exports
+include low-stock status based on the sidebar threshold.
 
-Uploads are validated with explicit error messages. Uploaded data is processed
-in memory and cached for the running application, not written to a database.
-Use non-sensitive demonstration data for public deployments. Order exports
-contain calculated revenue and shipping days; inventory exports include a
-low-stock status based on the sidebar threshold.
+## Getting started
 
-## Project Goals
+Python 3.11 or newer is recommended. From the repository directory:
 
-Demonstrate data cleaning, KPI modeling, interactive visualization,
-and business-focused dashboard design.
-
-## Getting Started
-
-Python 3.11 or newer is recommended.
-
-From the repository folder in Windows PowerShell:
-
-```powershell
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
+```bash
+python -m venv .venv
+source .venv/bin/activate
 python -m pip install -r requirements.txt
 python -m streamlit run app.py
 ```
 
-Open the local URL printed by Streamlit, normally http://localhost:8501.
-Leave the terminal running; press `Ctrl+C` to stop the app.
+On Windows PowerShell, activate the environment with
+`.\.venv\Scripts\Activate.ps1` instead. Open the local URL printed by Streamlit
+(usually <http://localhost:8501>). Press `Ctrl+C` in the terminal to stop the app.
 
-If PowerShell blocks activation, use the environment's Python directly:
+## Tests
 
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m streamlit run app.py
-```
-
-## Run Tests
-
-```powershell
+```bash
 python -m unittest discover -s tests -v
 ```
 
-Tests cover historical cutoffs, weighted fill rates, inventory snapshot
-selection, missing deliveries, invalid CSV data, repeatable sample data, and
-dashboard rendering/empty states using Streamlit's application test runner.
+The suite covers historical cutoffs, weighted fill rates, inventory snapshot
+selection, missing deliveries, CSV validation, repeatable sample data, and
+dashboard rendering and empty states.
 
-## Project Structure
+## Project structure
 
 ```text
 app.py                  Streamlit interface, charts, and CSV workflows
 dashboard_data.py       Sample data, validation, and KPI calculations
-requirements.txt        Runtime dependencies
-.streamlit/config.toml  Light theme and blue accent configuration
+requirements.txt        Pinned runtime dependencies
+.streamlit/config.toml  Streamlit theme configuration
 tests/                  Calculation and dashboard tests
+assets/                 README dashboard preview
 ```
