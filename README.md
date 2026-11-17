@@ -14,6 +14,7 @@
 </p>
 
 <p align="center">
+  <a href="https://supply-chain-kpi-dashboard-lfyffsckm5zgequxh7konf.streamlit.app/">🚀 Live demo</a> ·
   <a href="#features">Features</a> ·
   <a href="#getting-started">Get started</a> ·
   <a href="#data--kpi-definitions">Data &amp; KPIs</a> ·
