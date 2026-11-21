@@ -22,7 +22,7 @@ uploads, and downloadable reports. No external API or database is required.
 - **Interactive Filters:** Explore results by date, category, and region.
 - **CSV Upload:** Analyze your own data or explore sample datasets.
 - **Downloads:** Export filtered orders and point-in-time inventory snapshots.
-- **Accessible Layout:** Large text, white cards, and a deep blue gradient.
+- **Responsive Layout:** Large text, white cards, and a deep blue gradient adapt to desktop and mobile screens. Charts and KPI cards stack on narrow screens.
 
 ## Tech Stack
 

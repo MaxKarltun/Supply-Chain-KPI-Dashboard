@@ -24,6 +24,7 @@ st.set_page_config(
 st.markdown(
     """
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&display=swap');
     .stApp {
         color: #111827;
         background: linear-gradient(120deg, #2c73c2 0%, #286ebb 45%, #2468b0 100%);
@@ -59,6 +60,20 @@ st.markdown(
     .stApp main h1,
     .stApp main [data-testid="stCaptionContainer"] p {
         color: #ffffff;
+    }
+    .stApp main h1 {
+        font-family: "Orbitron", "Trebuchet MS", sans-serif;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+    }
+    .stApp main h1::first-letter {
+        text-shadow:
+            -1px -1px 0 #f1f5f9,
+            1px -1px 0 #f1f5f9,
+            -1px 1px 0 #f1f5f9,
+            1px 1px 0 #f1f5f9,
+            2px 3px 0 #1e3a5f,
+            4px 6px 6px #0f172a99;
     }
     .stApp main h2 {
         color: #ffffff;
@@ -128,12 +143,44 @@ st.markdown(
         border-radius: 16px;
         box-shadow: 0 8px 24px #1e40af0d;
     }
+    @media (max-width: 600px) {
+        .stApp [data-testid="stMainBlockContainer"] {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+        }
+        .stApp main h1 {
+            font-size: clamp(1.6rem, 7vw, 2.25rem);
+            overflow-wrap: normal;
+        }
+        .stApp main h2 {
+            font-size: 1.5rem;
+        }
+        .stApp main p, .stApp main label {
+            font-size: 1rem;
+        }
+        .stApp [data-testid="stMetric"] {
+            padding: 16px;
+        }
+        .stApp main [data-testid="stHorizontalBlock"] > [data-testid="stColumn"],
+        .stApp main [data-testid="stHorizontalBlock"]:has([data-testid="stMetric"])
+            > [data-testid="stColumn"] {
+            flex-basis: 100%;
+            min-width: 100%;
+        }
+        .stApp [data-testid="stTabs"] {
+            padding: 12px;
+        }
+        .stApp [data-testid="stPlotlyChart"] .gtitle {
+            font-size: 16px !important;
+        }
+    }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
 st.title("📦 Supply Chain KPI Dashboard")
+st.caption("Powered by Willmax")
 st.caption("OPERATIONS INTELLIGENCE  /  Revenue · Inventory · Fulfillment · Shipping")
 
 
@@ -413,4 +460,4 @@ with guide:
         """
     )
 
-st.caption("Built with Streamlit · Plotly · Pandas  |  Supply Chain Operations")
+st.caption("powered by Willmax")
